@@ -5,6 +5,11 @@ function setup() {
     //myCanvas.parent('gameArea');
 };
 
+function loadSound(){
+  createjs.Sound.registerSound("drum.wav", "drum");
+  createjs.Sound.registerSound("snare.wav", "snare");
+}
+window.onload = loadSound();
 
 
 jQuery(function($){
@@ -357,13 +362,31 @@ jQuery(function($){
         if (data.playerEffect === "effect1") {
           //App.$gameArea.css('background-color', '#BB60FE');
           // Get the player's score
-          App.Host.drawAnimation();
+          if (data.answer === "drum"){
+            App.Host.drawAnimation();
+
+            var soundID = "drum";
+
+            createjs.Sound.play(soundID);
+          }
+
+          else if (data.answer === "snare"){
+            App.Host.drawAnimation();
+
+            var soundID = "snare";
+
+            createjs.Sound.play(soundID);
+
+          }
 
 
 
         }
           else if(data.playerEffect === "effect2"){
             App.Host.drawAnimation2();
+          var soundID = "snare";
+
+          createjs.Sound.play(soundID);
           }
           else {
             // A wrong answer was submitted, so decrement the player's score.
@@ -496,6 +519,8 @@ jQuery(function($){
         // console.log('Clicked Answer Button');
         var $btn = $(this);      // the tapped button
         var answer = $btn.val(); // The tapped word
+
+
 
         // Send the player info and tapped word to the server so
         // the host can check the answer.
