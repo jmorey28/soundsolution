@@ -531,6 +531,39 @@ jQuery(function($){
           playerEffect: App.Player.effectChoice,
           round: App.currentRound
         }
+        if (data.playerEffect === "effect1") {
+          //App.$gameArea.css('background-color', '#BB60FE');
+          // Get the player's score
+          if (data.answer === "drum"){
+            App.Host.drawAnimation();
+
+            var soundID = "drum";
+
+            createjs.Sound.play(soundID);
+          }
+
+          else if (data.answer === "snare"){
+            App.Host.drawAnimation();
+
+            var soundID = "snare";
+
+            createjs.Sound.play(soundID);
+
+          }
+
+
+
+        }
+        else if(data.playerEffect === "effect2"){
+          App.Host.drawAnimation2();
+          var soundID = "snare";
+
+          createjs.Sound.play(soundID);
+        }
+        else {
+          // A wrong answer was submitted, so decrement the player's score.
+          //$pScore.text( +$pScore.text() - 3 );
+        }
         IO.socket.emit('playerAnswer',data);
       },
 
