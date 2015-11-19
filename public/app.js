@@ -361,7 +361,7 @@ jQuery(function($){
         // This prevents a 'late entry' from a player whos screen has not
         // yet updated to the current round.
 
-        createjs.Sound.play(data.answer);
+
 
         if (data.playerEffect === "effect1") {
           //App.$gameArea.css('background-color', '#BB60FE');
@@ -506,7 +506,7 @@ jQuery(function($){
         // console.log('Clicked Answer Button');
         var $btn = $(this);      // the tapped button
         var answer = $btn.val(); // The tapped word
-
+        createjs.Sound.play(answer);
 
 
         // Send the player info and tapped word to the server so
