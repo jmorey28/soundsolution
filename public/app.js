@@ -6,8 +6,10 @@ function setup() {
 };
 
 function loadSound(){
-  createjs.Sound.registerSound("drum.wav", "drum");
-  createjs.Sound.registerSound("snare.wav", "snare");
+  createjs.Sound.registerSound("kick.mp3", "drum");
+  createjs.Sound.registerSound("snare.mp3", "snare");
+  createjs.Sound.registerSound("clap.mp3", "clap");
+  createjs.Sound.registerSound("hihat.mp3", "hihat");
 }
 window.onload = loadSound();
 
@@ -184,6 +186,7 @@ jQuery(function($){
       App.$hostGame = $('#host-game-template').html();
       App.$blankCanvas = $('#host-blank-canvas').html();
       App.$EffectButtons = $('#effect-buttons-template').html();
+      App.$EffectButtons2 = $('#effect-buttons-template2').html();
     },
 
     /**
@@ -290,7 +293,7 @@ jQuery(function($){
         // Update host screen
         $('#playersWaiting')
             .append('<p/>')
-            .text('Player ' + data.playerName + ' joined the game.');
+            .text('Player ' + data.effect + ' joined the game.');
 
         // Store the new player's data on the Host.
         App.Host.players.push(data);
@@ -358,35 +361,19 @@ jQuery(function($){
         // This prevents a 'late entry' from a player whos screen has not
         // yet updated to the current round.
 
+        createjs.Sound.play(data.answer);
 
         if (data.playerEffect === "effect1") {
           //App.$gameArea.css('background-color', '#BB60FE');
           // Get the player's score
-          if (data.answer === "drum"){
-            App.Host.drawAnimation();
-
-            var soundID = "drum";
-
-            createjs.Sound.play(soundID);
-          }
-
-          else if (data.answer === "snare"){
-            App.Host.drawAnimation();
-
-            var soundID = "snare";
-
-            createjs.Sound.play(soundID);
-
-          }
-
+          App.Host.drawAnimation();
 
 
         }
           else if(data.playerEffect === "effect2"){
-            App.Host.drawAnimation2();
-          var soundID = "snare";
 
-          createjs.Sound.play(soundID);
+            App.Host.drawAnimation2();
+
           }
           else {
             // A wrong answer was submitted, so decrement the player's score.
@@ -531,7 +518,7 @@ jQuery(function($){
           playerEffect: App.Player.effectChoice,
           round: App.currentRound
         }
-        
+
         IO.socket.emit('playerAnswer',data);
       },
 
@@ -580,7 +567,14 @@ jQuery(function($){
        */
       newWord : function(data) {
         // Create an unordered list element
-        App.$gameArea.html(App.$EffectButtons);
+        if(App.Player.effectChoice==="effect1"){
+          App.$gameArea.html(App.$EffectButtons);
+        }
+
+        else if(App.Player.effectChoice==="effect2"){
+          App.$gameArea.html(App.$EffectButtons2);
+        }
+
          //  <ul> <li> <button class='btnAnswer' value='word'>word</button> </li> </ul>
 
 
