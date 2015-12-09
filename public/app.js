@@ -199,7 +199,9 @@ jQuery(function($){
       // Player
       App.$doc.on('click', '#btnJoinGame', App.Player.onJoinClick);
       App.$doc.on('click', '#btnStart',App.Player.onPlayerStartClick);
-      App.$doc.on('click', '.effectButton',App.Player.onPlayerAnswerClick);
+      App.$doc.on('click', '.effectButtons',App.Player.onPlayerAnswerClick);
+      App.$doc.on('focus', '.effectButtons',App.Player.onPlayerFocusClick);
+      App.$doc.on('blur', '.effectButtons',App.Player.onPlayerBlurClick);
       App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
     },
 
@@ -502,11 +504,24 @@ jQuery(function($){
       /**
        *  Click handler for the Player hitting a word in the word list.
        */
+      onPlayerBlurClick: function(){
+        var $btn = $(this);
+        $btn.addClass("buttonBorder");
+        $btn.removeClass("moveEffectButton");
+      },
+
+      onPlayerFocusClick: function(){
+        var $btn = $(this);
+        $btn.removeClass("buttonBorder");
+        $btn.addClass("moveEffectButton");
+      },
+
       onPlayerAnswerClick: function() {
         // console.log('Clicked Answer Button');
         var $btn = $(this);      // the tapped button
-        var answer = $btn.val(); // The tapped word
 
+        var answer = $btn.val(); // The tapped word
+        $btn.blur();
 
 
         // Send the player info and tapped word to the server so
@@ -569,6 +584,74 @@ jQuery(function($){
         // Create an unordered list element
         if(App.Player.effectChoice==="effect1"){
           App.$gameArea.html(App.$EffectButtons);
+
+          var colorsForButtons={ "colors": [
+
+            {
+              "colorOne": "#d6f8df",
+              "colorTwo": "#95e3ab",
+              "sound": "clap"
+
+            },
+
+            {
+              "colorOne": "#baebe5",
+              "colorTwo": "#96e5de",
+              "sound": "clap"
+
+            },
+
+            {
+              "colorOne": "#bbd6ee",
+              "colorTwo": "#95c4e9",
+              "sound": "clap"
+
+            },
+            {
+              "colorOne": "#bcb9ee",
+              "colorTwo": "#9899eb",
+              "sound": "clap"
+
+            },
+            {
+              "colorOne": "#dbb6e9",
+              "colorTwo": "#c891e2",
+              "sound": "clap"
+
+            },
+            {
+              "colorOne": "#ebb8df",
+              "colorTwo": "#e298d5",
+              "sound": "clap"
+
+            }
+
+          ]
+          };
+          // var template = $.templates("#effect-buttons-template");
+
+
+          //var htmlOutput = template.render(colorsForButtons);
+
+          // $("#result").html(htmlOutput);
+
+          //alert(colorsForButtons.colors[0].colorOne);
+          for(var key in colorsForButtons.colors){
+            //alert(colorsForButtons.colors[key].colorOne);
+            //alert(colorsForButtons.colors[key].colorTwo);
+            var colorOne=colorsForButtons.colors[key].colorOne;
+            var colorTwo=colorsForButtons.colors[key].colorTwo;
+            var sound=colorsForButtons.colors[key].sound;
+
+            $(".buttonContainer").append("<button class='effectButtons buttonBorder'"+
+                "value='"+sound+"'"+
+                "style='background: -webkit-radial-gradient(red, yellow);"+
+                "background: -o-radial-gradient(red, yellow); "+
+                "background: -moz-radial-gradient(red, yellow); " +
+                "background: radial-gradient("+colorOne+" 5%,"+ colorTwo+" 25%,#b4bdd4 80%);' >" )
+
+
+          }
         }
 
         else if(App.Player.effectChoice==="effect2"){

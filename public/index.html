@@ -12,11 +12,10 @@
 
     <script src="javascripts/p5.min.js" language="JavaScript" type="text/javascript"></script>
     <script src="https://code.createjs.com/createjs-2015.05.21.min.js"></script>
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/jsrender.min.js"></script>
 
     <!-- <script src="javascripts/p5.sound.min.js" language="JavaScript" type="text/javascript" ></script> -->
-
-
-
 
 </head>
 
@@ -61,6 +60,7 @@
 </script>
 
 <!-- This scrreen appears when a player clicks "JOIN" on the Title Screen -->
+
 <script id="join-game-template" type="text/template">
     <div class="joinGameWrapper">
         <div >
@@ -84,10 +84,11 @@
 <script id="effect-buttons-template" type="text/template">
 
 
-    <div class="info buttons">
-            <button class="effectButton" name="effect" class="btn" value="drum"></button>
-            <button class="effectButton" name="effect2" class="btn" value="snare"></button>
-        </div>
+    <div class="buttonContainer" >
+
+
+    </div>
+
 
 </script>
 
@@ -113,10 +114,100 @@
 
 </script>
 
-<!-- JavaScript Libraries -->
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        var colorsForButtons={ "colors": [
+
+            {
+                "colorOne": "#d6f8df",
+                "colorTwo": "#95e3ab",
+
+            },
+
+            {
+                "colorOne": "#baebe5",
+                "colorTwo": "#96e5de",
+
+            },
+
+            {
+                "colorOne": "#bbd6ee",
+                "colorTwo": "#95c4e9",
+
+            },
+            {
+                "colorOne": "#bcb9ee",
+                "colorTwo": "#9899eb",
+
+            },
+            {
+                "colorOne": "#dbb6e9",
+                "colorTwo": "#c891e2",
+
+            },
+            {
+                "colorOne": "#ebb8df",
+                "colorTwo": "#e298d5",
+
+            },
+
+        ]
+        };
+       // var template = $.templates("#effect-buttons-template");
+
+
+        //var htmlOutput = template.render(colorsForButtons);
+
+       // $("#result").html(htmlOutput);
+
+        //alert(colorsForButtons.colors[0].colorOne);
+        for(var key in colorsForButtons.colors){
+            //alert(colorsForButtons.colors[key].colorOne);
+            //alert(colorsForButtons.colors[key].colorTwo);
+            var colorOne=colorsForButtons.colors[key].colorOne;
+            var colorTwo=colorsForButtons.colors[key].colorTwo;
+
+            $(".buttonContainer").append("<button class='effectButtons buttonBorder'"+
+                    "style='background: -webkit-radial-gradient(red, yellow);"+
+                    "background: -o-radial-gradient(red, yellow); "+
+                    "background: -moz-radial-gradient(red, yellow); " +
+                    "background: radial-gradient("+colorOne+" 5%,"+ colorTwo+" 25%,#b4bdd4 80%);' >" )
+
+
+        }
+        $('.effectButtons').on('focus', function(){
+
+            $(this).removeClass("buttonBorder");
+            $(this).addClass("moveEffectButton");
+
+
+        });
+        $('.effectButtons').on('click', function(){
+
+
+            $(this).blur();
+
+
+        });
+        $('.effectButtons').on('blur', function(){
+            $(this).addClass("buttonBorder");
+            $(this).removeClass("moveEffectButton");
+        });
+
+
+
+
+    });
+
+</script>
+
+        <!-- JavaScript Libraries -->
 
 <!-- jQuery! -->
-<script src="javascripts/jquery.min.js"></script>
+
 
 
 
