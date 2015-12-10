@@ -6,9 +6,56 @@
 Dark Purple : #A22FB0
 
 */
+input[type="radio"] {
+  display:none;
+}
+input[type="radio"] + label {
+  color: rgba(224, 238, 245, 1);
 
+
+}
+input[type="radio"] + label span {
+
+  display:inline-block;
+  width:30px;
+  height:30px;
+  margin:-1px 4px 0 0;
+  vertical-align:middle;
+  cursor:pointer;
+  -moz-border-radius:  50%;
+  border-radius:  50%;
+}
+
+input[type="radio"] + label span {
+  background-color:rgba(224, 238, 245, 1);
+}
+
+input[type="radio"]:checked + label span{
+  background-color:#0277b3;
+}
+
+input[type="radio"] + label span,
+input[type="radio"]:checked + label span {
+  -webkit-transition:background-color 0.4s linear;
+  -o-transition:background-color 0.4s linear;
+  -moz-transition:background-color 0.4s linear;
+  transition:background-color 0.4s linear;
+}
+
+@font-face {
+  font-family: 'laconiclight';
+  src: url('laconic_light-webfont.eot');
+  src: url('laconic_light-webfont.eot?#iefix') format('embedded-opentype'),
+  url('laconic_light-webfont.woff2') format('woff2'),
+  url('laconic_light-webfont.woff') format('woff'),
+  url('laconic_light-webfont.ttf') format('truetype'),
+  url('laconic_light-webfont.svg#laconiclight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+
+}
 html, body {
-  background-color: #00071b;
+  background-color: #000921;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -25,25 +72,30 @@ html, body {
 .btn {
   display: inline-block;
   height: 100%;
-  width: 49%;
+  width: 200px;
   margin-bottom: 0;
-  color: #ECFFE0;
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 700;
+  color: #0277b3;
+  font-family: 'laconiclight';
+  letter-spacing: 4px;
   font-size: 2em;
   line-height: 1.2;
   text-align: center;
-  background-color: #059400;
+  background-color: rgba(0, 0, 0, 0);;
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  border: 1px solid transparent;
+  border: 3px solid #0277b3;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  border-radius: 30px;
+  border-radius: 10px;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
 }
 
 .btn:focus {
@@ -54,8 +106,8 @@ html, body {
 
 .btn:hover,
 .btn:focus {
-
-  background-color: rgba(5, 148, 0, 0.52);
+  color: rgba(224, 238, 245, 1);
+  border: 3px solid rgba(224, 238, 245, 1);
   text-decoration: none;
 }
 
@@ -67,11 +119,11 @@ html, body {
 }
 
 .left {
-  float: left;
+  margin-right: 5px;
 }
 
 .right {
-  float: right;
+  margin-left:5px;
 }
 
 .effectButton{
@@ -87,7 +139,7 @@ html, body {
 .effectButton:hover,
 .btn:hover,
 .btn:focus {
-  color: rgba(5, 148, 0, 0.46);
+
   text-decoration: none;
 }
 
@@ -107,8 +159,8 @@ html, body {
 }
 
 .titleWrapper {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 400;
+  font-family: 'laconiclight';
+
   position: absolute;
   height: 50%;
   width: 96%;
@@ -123,9 +175,9 @@ html, body {
   margin: 0px auto;
   text-align: center;
   width: 100%;
-  font-family: 'Quicksand', sans-serif;
-  color: #ECFFE0;
-  font-weight: 300;
+  font-family: 'laconiclight';
+  color: #0277b3;
+
 }
 
 .buttons {
@@ -139,22 +191,22 @@ html, body {
    ****************************** */
 
 .createGameWrapper, .joinGameWrapper, .gameOver {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'laconiclight';
   margin: 0 auto;
   text-align: center;
-  color: #059400;
+  color: #0277b3;
 }
 
 .createGameWrapper .info{
   color: #ECFFE0;
-  font-weight: 400;
+
   font-size: 2em;
   margin-top: 1.5em;
 }
 
 .createGameWrapper{
-  color: #059400;
-  font-weight: 300;
+  color: #0277b3;
+
 }
 
 .info label {
@@ -165,12 +217,12 @@ html, body {
   text-align: center;
   padding: 10px;
   width: 200px;
-  height: 60px;
-  font-family: 'Quicksand', sans-serif;
-  color: #059400;
-  font-weight: 300;
-  font-size: 54px;
-  border: 1px dotted white;
+  height: 30px;
+  font-family: 'laconiclight';
+  color: rgba(224, 238, 245, 1);
+
+  font-size: 20px;
+  border: 3px solid rgba(224, 238, 245, 1);
   border-radius: 10px;
   background: transparent;
 }
@@ -194,14 +246,21 @@ html, body {
 
 .joinGameWrapper .info {
   font-size: 1.5em;
-  color: #ECFFE0;
-  height: 30%;
-  padding-top: 1%;
+  color: #0277b3;
+  height:auto;
+  margin-top: 20px;
+}
+
+.joinGameWrapper .chooseButtons {
+  font-size: 1.5em;
+  color: #0277b3;
+  height:auto;
+  margin-top: 20px;
 }
 
 .joinGameWrapper .btn {
-  width: 100%;
-  height: 50%;
+  height: 70px;
+  width: 200px;
 }
 
 #playerWaitingMessage {
@@ -239,7 +298,7 @@ html, body {
 .btnAnswer {
   width: 100%;
   border-bottom: 1px dotted white;
-  font-weight: 400;
+
   font-size: 3em;
   color: #059400;
 }
@@ -253,8 +312,8 @@ html, body {
 
 /* Absolute Centering: http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/ */
 #wordArea {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 400;
+  font-family: 'laconiclight';
+
   position: absolute;
   height: 50%;
   width: 50%;
@@ -273,8 +332,8 @@ html, body {
 #hostWord h2, #btnPlayerRestart h3 {
   font-size: 161px;
   line-height: 1em;
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 400;
+  font-family: 'laconiclight';
+
   margin: 0;
   padding: 0;
   text-transform: uppercase;
@@ -291,8 +350,8 @@ html, body {
   width: 50%;
   padding: 0;
   margin: 0;
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 400;
+  font-family: 'laconiclight';
+
   height: 100%;
 }
 
@@ -343,9 +402,7 @@ html, body {
   bottom: 0;
 }
 
-body{
-  background-color: #14171f;
-}
+
 button:focus {outline:0;}
 
 .effectButtons{

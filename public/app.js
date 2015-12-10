@@ -8,8 +8,17 @@ function setup() {
 function loadSound(){
   createjs.Sound.registerSound("kick.mp3", "drum");
   createjs.Sound.registerSound("snare.mp3", "snare");
+  createjs.Sound.registerSound("electricSnare.mp3", "electricSnare");
+  createjs.Sound.registerSound("electricSnare2.mp3", "electricSnare2");
+  createjs.Sound.registerSound("vinylKick.mp3", "vKick");
+  createjs.Sound.registerSound("vinylKick2.mp3", "vKick2");
+
   createjs.Sound.registerSound("clap.mp3", "clap");
   createjs.Sound.registerSound("hihat.mp3", "hihat");
+  createjs.Sound.registerSound("tom.mp3", "tom");
+  createjs.Sound.registerSound("symbol.mp3", "symbol");
+  createjs.Sound.registerSound("trash.mp3", "trash");
+  createjs.Sound.registerSound("openHat.mp3", "openHat");
 }
 window.onload = loadSound();
 
@@ -42,7 +51,7 @@ jQuery(function($){
       IO.socket.on('newGameCreated', IO.onNewGameCreated );
       IO.socket.on('playerJoinedRoom', IO.playerJoinedRoom );
       IO.socket.on('beginNewGame', IO.beginNewGame );
-      IO.socket.on('newWordData', IO.onNewWordData);
+      IO.socket.on('showNewScreen', IO.onNewScreenData);
       IO.socket.on('hostCheckAnswer', IO.hostCheckAnswer);
       IO.socket.on('gameOver', IO.gameOver);
       IO.socket.on('er', IO.er );
@@ -92,12 +101,12 @@ jQuery(function($){
      * A new set of words for the round is returned from the server.
      * @param data
      */
-    onNewWordData : function(data) {
+    onNewScreenData : function(data) {
       // Update the current round
       App.currentRound = data.round;
 
       // Change the word for the Host and Player
-      App[App.myRole].newWord(data);
+      App[App.myRole].newScreen(data);
     },
 
     /**
@@ -202,7 +211,9 @@ jQuery(function($){
       App.$doc.on('click', '.effectButtons',App.Player.onPlayerAnswerClick);
       App.$doc.on('focus', '.effectButtons',App.Player.onPlayerFocusClick);
       App.$doc.on('blur', '.effectButtons',App.Player.onPlayerBlurClick);
+      App.$doc.on('tap', '.effectButtons',App.Player.onPlayertapClick);
       App.$doc.on('click', '#btnPlayerRestart', App.Player.onPlayerRestart);
+
     },
 
     /* *************************************
@@ -277,7 +288,7 @@ jQuery(function($){
 
         // Display the URL on screen
         $('#gameURL').text(window.location.href);
-        App.doTextFit('#gameURL');
+
 
         // Show the gameId / room id on screen
         $('#spanNewGameCode').text(App.gameId);
@@ -345,8 +356,9 @@ jQuery(function($){
        * Show the word for the current round on screen.
        * @param data{{round: *, word: *, answer: *, list: Array}}
        */
-      newWord : function(data) {
+      newScreen : function(data) {
         // Insert the new word into the DOM
+
         App.$gameArea.html(App.$blankCanvas);
 
         // Update the data for the current round
@@ -385,6 +397,7 @@ jQuery(function($){
       },
 
       drawAnimation : function draw() {
+
         // draw stuff here
         fill(255, 204, 0);
         var diameter = random(50, 200);
@@ -515,6 +528,11 @@ jQuery(function($){
         $btn.removeClass("buttonBorder");
         $btn.addClass("moveEffectButton");
       },
+      onPlayertapClick: function(){
+        var $btn = $(this);
+        $btn.removeClass("buttonBorder");
+        $btn.addClass("moveEffectButton");
+      },
 
       onPlayerAnswerClick: function() {
         // console.log('Clicked Answer Button');
@@ -580,7 +598,7 @@ jQuery(function($){
        * Show the list of words for the current round.
        * @param data{{round: *, word: *, answer: *, list: Array}}
        */
-      newWord : function(data) {
+      newScreen : function(data) {
         // Create an unordered list element
         if(App.Player.effectChoice==="effect1"){
           App.$gameArea.html(App.$EffectButtons);
@@ -590,39 +608,39 @@ jQuery(function($){
             {
               "colorOne": "#d6f8df",
               "colorTwo": "#95e3ab",
-              "sound": "clap"
+              "sound": "drum"
 
             },
 
             {
               "colorOne": "#baebe5",
               "colorTwo": "#96e5de",
-              "sound": "clap"
+              "sound": "snare"
 
             },
 
             {
               "colorOne": "#bbd6ee",
               "colorTwo": "#95c4e9",
-              "sound": "clap"
+              "sound": "electricSnare"
 
             },
             {
               "colorOne": "#bcb9ee",
               "colorTwo": "#9899eb",
-              "sound": "clap"
+              "sound": "electricSnare2"
 
             },
             {
               "colorOne": "#dbb6e9",
               "colorTwo": "#c891e2",
-              "sound": "clap"
+              "sound": "vKick"
 
             },
             {
               "colorOne": "#ebb8df",
               "colorTwo": "#e298d5",
-              "sound": "clap"
+              "sound": "vKick2"
 
             }
 
@@ -656,6 +674,78 @@ jQuery(function($){
 
         else if(App.Player.effectChoice==="effect2"){
           App.$gameArea.html(App.$EffectButtons2);
+
+          var colorsForButtons={ "colors": [
+
+            {
+              "colorOne": "#d6f8df",
+              "colorTwo": "#95e3ab",
+              "sound": "clap"
+
+            },
+
+            {
+              "colorOne": "#baebe5",
+              "colorTwo": "#96e5de",
+              "sound": "hihat"
+
+            },
+
+            {
+              "colorOne": "#bbd6ee",
+              "colorTwo": "#95c4e9",
+              "sound": "tom"
+
+            },
+            {
+              "colorOne": "#bcb9ee",
+              "colorTwo": "#9899eb",
+              "sound": "symbol"
+
+            },
+            {
+              "colorOne": "#dbb6e9",
+              "colorTwo": "#c891e2",
+              "sound": "trash"
+
+            },
+            {
+              "colorOne": "#ebb8df",
+              "colorTwo": "#e298d5",
+              "sound": "openHat"
+
+            }
+
+          ]
+          };
+          // var template = $.templates("#effect-buttons-template");
+
+
+          //var htmlOutput = template.render(colorsForButtons);
+
+          // $("#result").html(htmlOutput);
+
+          //alert(colorsForButtons.colors[0].colorOne);
+          for(var key in colorsForButtons.colors){
+            //alert(colorsForButtons.colors[key].colorOne);
+            //alert(colorsForButtons.colors[key].colorTwo);
+            var colorOne=colorsForButtons.colors[key].colorOne;
+            var colorTwo=colorsForButtons.colors[key].colorTwo;
+            var sound=colorsForButtons.colors[key].sound;
+
+            $(".buttonContainer").append("<button class='effectButtons buttonBorder'"+
+                "value='"+sound+"'"+
+                "style='background: -webkit-radial-gradient(red, yellow);"+
+                "background: -o-radial-gradient(red, yellow); "+
+                "background: -moz-radial-gradient(red, yellow); " +
+                "background: radial-gradient("+colorOne+" 5%,"+ colorTwo+" 25%,#b4bdd4 80%);' >" )
+
+
+          }
+
+
+
+
         }
 
          //  <ul> <li> <button class='btnAnswer' value='word'>word</button> </li> </ul>

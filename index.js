@@ -12,7 +12,7 @@ var path = require('path');
 // Create a new instance of Express
 var app = express();
 
-// Import the Anagrammatix game file.
+// Import the soundsolution file.
 var ssApp = require('./soundsolution');
 
 //define logger

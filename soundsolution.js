@@ -162,7 +162,7 @@ function playerRestart(data) {
  */
 function sendWord(wordPoolIndex, gameId) {
     var data = getWordData(wordPoolIndex);
-    io.sockets.in(gameId).emit('newWordData', data);
+    io.sockets.in(gameId).emit('showNewScreen', data);
 
 }
 
